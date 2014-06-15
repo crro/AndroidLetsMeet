@@ -10,6 +10,7 @@ import java.util.TimeZone;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -36,6 +37,7 @@ public class ScheduleActivity extends FragmentActivity implements OnItemSelected
 	private Button _endBtn;
 	private boolean _startBool;
 	private boolean _endBool;
+	private Button _scheduleBtn;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class ScheduleActivity extends FragmentActivity implements OnItemSelected
 		_selected = new ArrayList<Date>();
 		_startBtn = (Button) findViewById(R.id.startBtn);
 		_endBtn = (Button) findViewById(R.id.endBtn);
+		_scheduleBtn =  (Button) findViewById(R.id.scheduleBtn);
 		Button timeZoneBtn = (Button) findViewById(R.id.timeZoneBtn);
 		timeZoneBtn.setText("Time Zone: "+ TimeZone.getDefault().getDisplayName(false, TimeZone.SHORT));
 		//Used to determine what button to change
@@ -75,6 +78,15 @@ public class ScheduleActivity extends FragmentActivity implements OnItemSelected
 				_endBool = true;
 				DialogFragment newFragment = new TimePickerFragment();
 			    newFragment.show(getSupportFragmentManager(), "timePicker");
+			}
+		});
+		
+		_scheduleBtn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(getApplicationContext(), ManageActivity.class);
+				startActivity(i);
 			}
 		});
 		
@@ -143,8 +155,6 @@ public class ScheduleActivity extends FragmentActivity implements OnItemSelected
 		};
 		caldroidFragment.setCaldroidListener(listener);
 	}
-	
-	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -174,7 +184,7 @@ public class ScheduleActivity extends FragmentActivity implements OnItemSelected
 					if (hourOfDay == 24) {
 						ScheduleActivity.this._startBtn.setText("Start\n " + 00 + ":" + "00");
 					} else {
-						ScheduleActivity.this._startBtn.setText("Start\n " + hourOfDay + 1+ ":" + "00");
+						ScheduleActivity.this._startBtn.setText("Start\n " + (Integer.valueOf(hourOfDay + 1)).intValue()+ ":" + "00");
 					}
 				} else {
 					ScheduleActivity.this._startBtn.setText("Start\n " + hourOfDay+ ":" + "00");
@@ -182,9 +192,9 @@ public class ScheduleActivity extends FragmentActivity implements OnItemSelected
 			} else {
 				if (minute > 30) {
 					if (hourOfDay == 24) {
-						ScheduleActivity.this._endBtn.setText("Start\n " + "00" + ":" + "00");
+						ScheduleActivity.this._endBtn.setText("End\n " + "00" + ":" + "00");
 					} else {
-						ScheduleActivity.this._endBtn.setText("Start\n " + hourOfDay + 1 + ":" + "00");
+						ScheduleActivity.this._endBtn.setText("End\n " + (Integer.valueOf(hourOfDay + 1)).intValue() + ":" + "00");
 					}
 				} else {
 					ScheduleActivity.this._endBtn.setText("End\n " + hourOfDay+ ":" + "00");

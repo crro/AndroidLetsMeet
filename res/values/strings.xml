@@ -7,6 +7,8 @@
     <string name="customize">Customize</string>
     <string name="show_dialog">Show Dialog</string>
     <string name="undo">Undo</string>
+    <string name="item">Page %d</string>
+    <string name="manage_name">Manage Activity</string>
     <string-array name="time_array">
         <item>0:30</item>
         <item>1:00</item>
